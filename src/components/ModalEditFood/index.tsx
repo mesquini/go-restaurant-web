@@ -40,6 +40,9 @@ const ModalEditFood: React.FC<IModalProps> = ({
   const handleSubmit = useCallback(
     async (data: IEditFoodData) => {
       // EDIT A FOOD PLATE AND CLOSE THE MODAL
+      handleUpdateFood(data);
+
+      setIsOpen();
     },
     [handleUpdateFood, setIsOpen],
   );
@@ -53,7 +56,7 @@ const ModalEditFood: React.FC<IModalProps> = ({
         <Input name="name" placeholder="Ex: Moda Italiana" />
         <Input name="price" placeholder="Ex: 19.90" />
 
-        <Input name="description" placeholder="Descrição" />
+        <Input name="description" maxLength={126} placeholder="Descrição" />
 
         <button type="submit" data-testid="edit-food-button">
           <div className="text">Editar Prato</div>
