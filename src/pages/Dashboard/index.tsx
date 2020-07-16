@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Header from '../../components/Header';
 
@@ -35,13 +35,22 @@ const Dashboard: React.FC = () => {
     loadFoods();
   }, []);
 
+  const generateId = useCallback(() => {
+    const id = foods.reduce(
+      (acumulador, valorAtual) => acumulador + valorAtual.id,
+      0,
+    );
+
+    return id;
+  }, [foods]);
+
   async function handleAddFood(
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
     try {
       // TODO ADD A NEW FOOD PLATE TO THE API
       const data = {
-        id: foods.length + 1,
+        id: generateId(),
         available: true,
         ...food,
       } as IFoodPlate;
